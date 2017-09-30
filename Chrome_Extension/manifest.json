@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+
+  "name": "Warning for Android API",
+  "description": "This extension allows the user to get potential warning of Android API.",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "gjx.png",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "http://localhost/*",
+    //"*://*.youtube.com/*",
+    "tabs",
+    "cookies",
+    "storage"
+  ],
+ "background":["crawler.js"]
+  //"content_scripts":[{
+  //  "matches": ["*://*.youtube.com/*"],
+  //  "js": ["crawler.js"]
+ // }]
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset = "UTF-8">
+  <title></title>
+  <style>
+    body{
+      /*
+      opacity: 0.8;
+      background: rgba(0,0,0,.2);
+      */
+      height: 400px;
+      width: 300px;
+      text-align: center;
+      margin:0px;
+      padding:0px;
+    }
+    div#message{
+
+      height: 380px;
+      width: 290px;
+      font-size: 20pt;
+      /*
+      margin-left: 2%;
+      margin-right: 15%;
+      */
+
+      overflow-y: scroll;
+    }
+
+    .accordion > li {
+      width: 100%;
+      display: block;
+    }
+    .accordion li > li {
+      width: 100%;
+      cursor: not-allowed;
+      text-align: left;
+      font-size: 15px;
+      margin-left: 20px;
+    }
+    .accordion li > h3 {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      width: 100%;
+      border: none;
+      text-align: center;
+      outline: none;
+      font-size: 20px;
+    }
+  </style>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="crawler.js"></script>
+</head>
+<body>
+<div id="message"></div>
+</body>
