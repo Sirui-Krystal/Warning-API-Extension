@@ -4,7 +4,7 @@
 1. Chrome Browser. The plugin was implemented using Chrome Version 61.0.3163.91 (Official Build) (64-bit)
 2. XAMPP. It can download from <https://www.apachefriends.org/download.html>. Version 7.0.23 / PHP 7.0.23 for OS X was used.
 
-## Running the plugin
+## Running The Extension
 This section will introduce how to run this plugin in your Chrome Browser.
 
 1. Saving "db1" folder into ~/Applications/XAMPP/htdocs
