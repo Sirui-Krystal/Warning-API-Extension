@@ -45,10 +45,22 @@ else{
     }
     //var_dump($a);
 }
+/*
 $sql = "SELECT Warning.WarningText,Warning.WarningType FROM Warning WHERE Warning.id IN (
 SELECT RecommandWarning.WarningIndex FROM RecommandWarning WHERE RecommandWarning.EntitiesIndex IN(
 SELECT Entities.id FROM Entities WHERE Entities.EntityName IN ('".implode("','",$a)."')
 )
+)
+";
+*/
+$sql = "SELECT Warning.WarningText,Warning.WarningType FROM Warning WHERE Warning.id IN (
+SELECT RecommandWarning.WarningIndex FROM RecommandWarning WHERE RecommandWarning.EntitiesIndex IN(
+SELECT Entities.id FROM Entities WHERE Entities.EntityName IN ('" . implode("','", $a) . "')
+) 
+)
+OR Warning.WarningSentId IN (
+SELECT EntitiesRelation.Sentenceid FROM EntitiesRelation WHERE EntitiesRelation.EntityOne IN ('".implode("','",$a)."')
+OR EntitiesRelation.EntityTwo IN ('".implode("','",$a)."')
 )
 ";
 //echo $sql;
@@ -58,7 +70,9 @@ if(mysqli_num_rows($text) > 0){
     $warningText = array();
     while($row = mysqli_fetch_assoc($text)) {
         if (array_key_exists($row["WarningType"], $warningText)) {
-            array_push($warningText[$row["WarningType"]],$row["WarningText"]);
+            if (!in_array($row["WarningText"],$warningText[$row["WarningType"]])){
+                array_push($warningText[$row["WarningType"]],$row["WarningText"]);
+            }
         }
         else{
             $warningText[$row["WarningType"]] = array();
