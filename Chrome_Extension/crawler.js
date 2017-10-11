@@ -12,9 +12,6 @@ function passVal(passingData){
                 document.getElementById("message").innerHTML="No Warning sentences for this page!";
             }
             else{
-                //var length = data['File']['Should'].length;
-                //document.getElementById("message").innerHTML=length;
-
                 var data = JSON.parse(msg);
                 //var length = Object.keys(data).length;
                 var ul = document.createElement('ul');
@@ -55,14 +52,6 @@ function passVal(passingData){
                         }
                     }
                 }
-                $(function () {
-                    $('span').click(function () {
-                        $('#datalist li:hidden').slice(0, 2).show();
-                        if ($('#datalist li').length == $('#datalist li:visible').length) {
-                            $('span ').hide();
-                        }
-                    });
-                });
             }
 
     });
