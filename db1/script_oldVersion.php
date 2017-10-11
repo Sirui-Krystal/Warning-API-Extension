@@ -8,6 +8,7 @@ $link = $_POST["currentUrl"];
 // create connection
 $bridge = mysqli_connect("$servename", "$username","$password", "$dbname");
 
+
 //check connection
 if (!$bridge){
     echo "not connect with database";
