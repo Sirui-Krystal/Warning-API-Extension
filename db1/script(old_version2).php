@@ -63,7 +63,7 @@ SELECT EntitiesRelation.Sentenceid FROM EntitiesRelation WHERE EntitiesRelation.
 OR EntitiesRelation.EntityTwo IN ('".implode("','",$a)."')
 )
 ";
-//echo $sql;
+
 $text = mysqli_query($bridge,$sql);
 //var_dump($text);
 if(mysqli_num_rows($text) > 0){
