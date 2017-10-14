@@ -41,7 +41,7 @@ function passVal(passingData){
                         li2.appendChild(ul2);
                         for (var windex in data[EnName][wType]){
                             var li3 = document.createElement('li');
-                            li3.setAttribute('name','warning-text');
+                            li3.setAttribute('class','warning-text');
                             ul2.appendChild(li3);
                             li3.innerHTML = data[EnName][wType][windex];
                         }
