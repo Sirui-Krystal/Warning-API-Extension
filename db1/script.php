@@ -22,7 +22,6 @@ libxml_use_internal_errors(true);
 $dom->loadHTML($html);
 libxml_use_internal_errors(false);
 $xpath = new DOMXPath($dom);
-
 // reference pages
 if ($part[3]=="reference"){
     foreach ($xpath->query('//div[@class="jd-descr "]/div[contains(@class,"api apilevel")]/table/tr[contains(@class,"api apilevel")]/td/code/a') as $div1){
@@ -56,28 +55,30 @@ else{
 }
 //print_r($counts);
 
-// map EntityName to id
+// map id to EntityName
 $Enid_EnName = array();
 $Enid = array();
 $sql1 = "SELECT id,EntityName FROM Entities WHERE EntityName IN ('". implode("','", $orderEn)."')";
 $text1 = mysqli_query($bridge,$sql1);
 if(mysqli_num_rows($text1) > 0){
     while($row = mysqli_fetch_assoc($text1)) {
-        if (! in_array($row["id"], $Enid)){
-            array_push($Enid, $row["id"]);
-        }
-        if (array_key_exists($row["id"], $Enid_EnName)) {
-            if (!in_array($row["EntityName"],$Enid_EnName[$row["id"]])){
-                array_push($Enid_EnName[$row["id"]],$row["EntityName"]);
+        if (array_key_exists($row["EntityName"], $counts)){
+            if (! in_array($row["id"], $Enid)){
+                array_push($Enid, $row["id"]);
             }
-        } else{
-            $Enid_EnName[$row["id"]] = $row["EntityName"];
-            //array_push($Enid_EnName[$row["id"]],$row["EntityName"]);
+            if (array_key_exists($row["id"], $Enid_EnName)) {
+                if (!in_array($row["EntityName"],$Enid_EnName[$row["id"]])){
+                    array_push($Enid_EnName[$row["id"]],$row["EntityName"]);
+                }
+            } else{
+                $Enid_EnName[$row["id"]] = $row["EntityName"];
+                //array_push($Enid_EnName[$row["id"]],$row["EntityName"]);
+            }
         }
+
     }
 }
 //print_r($Enid_EnName);
-
 // map EntitiesIndex to WarningIndex
 $Enid_Warningid = array();
 $hasWarning_Enid = array();
@@ -135,8 +136,11 @@ $hasWarnEnName_Enid = array();
 $hasWarnEnName_Warnid = array();
 $data_allType = array();
 foreach($hasWarning_Enid as $hEnid){
-    if(!in_array($Enid_EnName[$hEnid],$hasWarnEnName_count)){
-        $hasWarnEnName_count[$Enid_EnName[$hEnid]] = $counts[$Enid_EnName[$hEnid]];
+    if(!array_key_exists($Enid_EnName[$hEnid],$hasWarnEnName_count)){
+        //$hasWarnEnName_count[$Enid_EnName[$hEnid]] = array();
+        $test = $counts[$Enid_EnName[$hEnid]];
+        $hasWarnEnName_count[$Enid_EnName[$hEnid]] = $test;
+
     }
     if(!array_key_exists($Enid_EnName[$hEnid],$hasWarnEnName_Enid)){
         $hasWarnEnName_Enid[$Enid_EnName[$hEnid]] = array();
@@ -177,13 +181,16 @@ foreach ($hasWarnEnName_Enid as $key=>$value){
     }
 }
 //print_r($hasWarnEnName_Warnid);
-
 // may have problems, need double check with new database
+//print_r($Warningid_TextType[108420]);
+
 foreach($hasWarnEnName_Warnid as $key=>$value){
-    foreach($value as $v){
+    foreach ($value as $v) {
         $buffer = $Warningid_TextType[$v];
         foreach($buffer as $k=>$vl){
-            array_push($data_allType[$key][$k],$vl);
+            if(!in_array($vl, $data_allType[$key][$k])){
+                array_push($data_allType[$key][$k],$vl);
+            }
         }
     }
 }
@@ -199,6 +206,5 @@ if ($data == null){
     echo json_encode($data);
     //print_r($data);
 }
-
 $bridge->close();
 ?>
