@@ -30,26 +30,32 @@ function passVal(passingData){
                 var ul1 = document.createElement('ul');
                 li1.appendChild(ul1);
                 for (var wType in data[EnName]){
-                    var li2 = document.createElement('li');
-                    ul1.appendChild(li2);
-                    var a2 = document.createElement('a');
-                    li2.appendChild(a2);
-                    //a2.setAttribute('href','#');
-                    a2.setAttribute('class','warning-type');
-                    a2.innerHTML=wType;
-                    var ul2 = document.createElement('ul');
-                    li2.appendChild(ul2);
-                    for (var windex in data[EnName][wType]){
-                        var li3 = document.createElement('li');
-                        li3.setAttribute('name','warning-text');
-                        ul2.appendChild(li3);
-                        li3.innerHTML = data[EnName][wType][windex];
-                    }
-
+                        var li2 = document.createElement('li');
+                        ul1.appendChild(li2);
+                        var a2 = document.createElement('a');
+                        li2.appendChild(a2);
+                        //a2.setAttribute('href','#');
+                        a2.setAttribute('class','warning-type');
+                        a2.innerHTML=wType;
+                        var ul2 = document.createElement('ul');
+                        li2.appendChild(ul2);
+                        for (var windex in data[EnName][wType]){
+                            var li3 = document.createElement('li');
+                            li3.setAttribute('name','warning-text');
+                            ul2.appendChild(li3);
+                            li3.innerHTML = data[EnName][wType][windex];
+                        }
                 }
             }
+            $(function(){
+                $(".entity-name").click(function () {
+                    $(this).parent().find('ul').slideToggle();
+                })
+                $(".warning-type").click(function () {
+                    $(this).parent().find('ul').slideToggle();
+                })
+            });
         }
-
     });
     request.fail(function(jqXHR, textStatus) {
         alert( "Request failed: " + textStatus );
