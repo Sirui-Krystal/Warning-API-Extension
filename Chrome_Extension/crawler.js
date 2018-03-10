@@ -2,7 +2,7 @@ function passVal(passingData){
     var curl = passingData;
     var request = $.ajax({
         type: "POST",
-        url: "http://localhost/db1/script.php",
+        url: "http://localhost/db1/tf_idf.php",
         data: {"currentUrl":curl},
         dataType: "html"
     })
